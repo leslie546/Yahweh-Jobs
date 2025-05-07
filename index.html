@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Untitled</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+<title>Yahweh Jobs - Resume Templates Integrated</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 400px;
+    margin: 15px auto;
+    padding: 10px 15px;
+    background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
+    color: white;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 15px;
+    font-weight: 900;
+    font-size: 1.6rem;
+    text-shadow: 0 0 6px rgba(0,0,0,0.4);
+  }
+  label {
+    font-weight: 700;
+    margin-top: 12px;
+    display: block;
+    color: #eee;
+  }
+  select, textarea, input[type="text"] {
+    width: 100%;
+    padding: 8px 10px;
+    margin-top: 6px;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    box-sizing: border-box;
+    background: #ffffff33;
+    color: white;
+    outline: none;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+  button {
+    margin: 18px 0 15px;
+    background: #ff6f61;
+    border: none;
+    color: white;
+    padding: 14px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 700;
+    box-shadow: 0 5px 15px rgb(255 111 97 / 0.7);
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background: #ff4c3b;
+  }
+  #templatePreview {
+    flex-grow: 1;
+    background: white;
+    color: #333;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 6px 22px rgb(0 0 0 / 0.14);
+    max-height: 470px;
+    overflow-y: auto;
+  }
+  /* template styles */
+  .template1 {
+    font-family: 'Georgia', serif;
+    color: #2f4050;
+  }
+  .template1 .section-header {
+    border-color: #e74c3c;
+    color: #e74c3c;
+  }
+  .template2 {
+    font-family: 'Arial', sans-serif;
+    color: #34495e;
+  }
+  .template2 .section-header {
+    border-color: #27ae60;
+    color: #27ae60;
+  }
+  .template3 {
+    font-family: 'Courier New', Courier, monospace;
+    color: #222;
+  }
+  .template3 .section-header {
+    border-color: #8e44ad;
+    color: #8e44ad;
+  }
+  .resume-title {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: inherit;
+    margin-bottom: 4px;
+  }
+  .resume-subtitle {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: inherit;
+  }
+  .section-header {
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-top: 18px;
+    border-bottom: 2px solid;
+    padding-bottom: 4px;
+  }
+  .section-content {
+    margin-top: 8px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+  }
+  #pdfNotice {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #ccc;
+    font-style: italic;
+    text-align: center;
+  }
+</style>
+</head>
+
+<body>
+  <h1>Yahweh Jobs - Resume Templates</h1>
+
+  <label for="templateSelect">Choose a Resume Template:</label>
+  <select id="templateSelect" aria-label="Select Resume Template">
+    <option value="template1">Classic Professional (Template 1)</option>
+    <option value="template2">Modern Clean (Template 2)</option>
+    <option value="template3">Monospace Simple (Template 3)</option>
+  </select>
+
+  <label for="nameInput">Full Name:</label>
+  <input type="text" id="nameInput" placeholder="John Doe" />
+
+  <label for="titleInput">Job Title / Headline:</label>
+  <input type="text" id="titleInput" placeholder="Frontend Developer" />
+
+  <label for="summaryInput">Summary / Objective:</label>
+  <textarea id="summaryInput" placeholder="A brief summary about your skills, goals, and experience..."></textarea>
+
+  <label for="skillsInput">Skills (comma separated):</label>
+  <input type="text" id="skillsInput" placeholder="JavaScript, React, Node.js, CSS" />
+
+  <label for="experienceInput">Experience (job titles and companies):</label>
+  <textarea id="experienceInput" placeholder="Frontend Developer - XYZ Corp (2019-2023)\nIntern - ABC Ltd (2018-2019)"></textarea>
+
+  <label for="educationInput">Education:</label>
+  <textarea id="educationInput" placeholder="BSc Computer Science - University ABC, 2018"></textarea>
+
+  <button id="generateBtn">Generate Resume Preview</button>
+
+  <div id="templatePreview" aria-live="polite" aria-atomic="true"></div>
+  <div id="pdfNotice">To download or print your resume, use your browser's print function (Ctrl+P or Cmd+P).</div>
+
+  <script>
+    const generateBtn = document.getElementById('generateBtn');
+    const templatePreview = document.getElementById('templatePreview');
+
+    function escapeHTML(text) {
+      const div = document.createElement('div');
+      div.innerText = text;
+      return div.innerHTML;
+    }
+
+    function renderTemplate(templateClass, data) {
+      return `
+        <div class="${templateClass}">
+          <div class="resume-title">${escapeHTML(data.name)}</div>
+          <div class="resume-subtitle">${escapeHTML(data.title)}</div>
+
+          <div class="section-header">Summary</div>
+          <div class="section-content">${escapeHTML(data.summary).replace(/\n/g, '<br>')}</div>
+
+          <div class="section-header">Skills</div>
+          <div class="section-content">${escapeHTML(data.skills).split(',').map(s => s.trim()).filter(s => s).join(', ')}</div>
+
+          <div class="section-header">Experience</div>
+          <div class="section-content">${escapeHTML(data.experience).replace(/\n/g, '<br>')}</div>
+
+          <div class="section-header">Education</div>
+          <div class="section-content">${escapeHTML(data.education).replace(/\n/g, '<br>')}</div>
+        </div>
+      `;
+    }
+
+    generateBtn.onclick = () => {
+      const templateSelect = document.getElementById('templateSelect').value;
+      const data = {
+        name: document.getElementById('nameInput').value.trim() || 'John Doe',
+        title: document.getElementById('titleInput').value.trim() || 'Job Title',
+        summary: document.getElementById('summaryInput').value.trim() || 'Write a brief summary or objective here...',
+        skills: document.getElementById('skillsInput').value.trim() || 'Skill1, Skill2, Skill3',
+        experience: document.getElementById('experienceInput').value.trim() || 'Job title - Company (Year-Year)',
+        education: document.getElementById('educationInput').value.trim() || 'Degree - Institution (Year)'
+      };
+      templatePreview.innerHTML = renderTemplate(templateSelect, data);
+    };
+
+    // Render default preview on load
+    window.onload = () => {
+      generateBtn.click();
+    };
+  </script>
+</body>
+</html>
+</content>
+</create_file>
+<!-- partial -->
+  
+</body>
+</html>
