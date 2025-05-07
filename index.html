@@ -13,11 +13,11 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>Yahweh Jobs - Resume Templates Integrated</title>
+<title>Yahweh Jobs - AI Powered Job Platform</title>
 <style>
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    max-width: 400px;
+    max-width: 450px;
     margin: 15px auto;
     padding: 10px 15px;
     background: linear-gradient(135deg, #3a1c71, #d76d77, #ffaf7b);
@@ -28,10 +28,10 @@
   }
   h1 {
     text-align: center;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     font-weight: 900;
-    font-size: 1.6rem;
-    text-shadow: 0 0 6px rgba(0,0,0,0.4);
+    font-size: 1.8rem;
+    text-shadow: 0 0 6px rgba(0,0,0,0.5);
   }
   label {
     font-weight: 700;
@@ -39,7 +39,7 @@
     display: block;
     color: #eee;
   }
-  select, textarea, input[type="text"] {
+  select, textarea, input[type="text"], input[type="password"], input[type="file"] {
     width: 100%;
     padding: 8px 10px;
     margin-top: 6px;
@@ -72,157 +72,391 @@
   button:hover {
     background: #ff4c3b;
   }
-  #templatePreview {
-    flex-grow: 1;
+  .hidden {
+    display: none !important;
+  }
+  #loginSection, #mainMenuSection, #sectionContent {
+    background: rgba(255 255 255 / 0.15);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 20px #0008;
+    margin-bottom: 20px;
+  }
+  #sectionContent {
+    color: #222;
     background: white;
-    color: #333;
+    min-height: 350px;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 6px 22px rgb(0 0 0 / 0.14);
-    max-height: 470px;
     overflow-y: auto;
-  }
-  /* template styles */
-  .template1 {
-    font-family: 'Georgia', serif;
-    color: #2f4050;
-  }
-  .template1 .section-header {
-    border-color: #e74c3c;
-    color: #e74c3c;
-  }
-  .template2 {
-    font-family: 'Arial', sans-serif;
-    color: #34495e;
-  }
-  .template2 .section-header {
-    border-color: #27ae60;
-    color: #27ae60;
-  }
-  .template3 {
-    font-family: 'Courier New', Courier, monospace;
-    color: #222;
-  }
-  .template3 .section-header {
-    border-color: #8e44ad;
-    color: #8e44ad;
-  }
-  .resume-title {
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: inherit;
-    margin-bottom: 4px;
-  }
-  .resume-subtitle {
-    font-size: 1.1rem;
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: inherit;
   }
   .section-header {
     font-weight: 700;
-    font-size: 1.1rem;
-    margin-top: 18px;
-    border-bottom: 2px solid;
-    padding-bottom: 4px;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #ff6f61;
+    padding-bottom: 6px;
+    color: #ff6f61;
   }
-  .section-content {
-    margin-top: 8px;
-    line-height: 1.4;
+  .option-button {
+    background: #3498db;
+    margin: 10px 0;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 14px rgb(52 152 219 / 0.5);
+    color: white;
+    border: none;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  .option-button:hover {
+    background: #2980b9;
+  }
+  .textarea-large {
+    min-height: 120px;
+    font-family: monospace;
     white-space: pre-wrap;
   }
-  #pdfNotice {
+  #aiResumeOutput, #coverLetterOutput, #keywordOutput, #atsResult, #jobResults, #fileToolsOutput, #scannerOutput {
+    white-space: pre-wrap;
     margin-top: 10px;
-    font-size: 0.9rem;
-    color: #ccc;
-    font-style: italic;
-    text-align: center;
+    padding: 12px;
+    background: #eee;
+    color: #222;
+    border-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  #fileConverterSection input[type="file"] {
+    margin-bottom: 10px;
+  }
+  .error-message {
+    color: #ff4c3b;
+    font-weight: 700;
+    margin-top: 10px;
   }
 </style>
 </head>
-
 <body>
-  <h1>Yahweh Jobs - Resume Templates</h1>
+<h1>Yahweh Jobs</h1>
 
-  <label for="templateSelect">Choose a Resume Template:</label>
-  <select id="templateSelect" aria-label="Select Resume Template">
-    <option value="template1">Classic Professional (Template 1)</option>
-    <option value="template2">Modern Clean (Template 2)</option>
-    <option value="template3">Monospace Simple (Template 3)</option>
-  </select>
+<!-- Login Section -->
+<div id="loginSection" aria-label="Login Section">
+  <label for="username">Username:</label>
+  <input type="text" id="username" autocomplete="username" placeholder="Enter username" />
+  <label for="password">Password:</label>
+  <input type="password" id="password" autocomplete="current-password" placeholder="Enter password" />
+  <button id="loginBtn" aria-label="Login Button">Login</button>
+  <div id="loginError" class="error-message" role="alert" aria-live="assertive"></div>
+</div>
 
-  <label for="nameInput">Full Name:</label>
-  <input type="text" id="nameInput" placeholder="John Doe" />
+<!-- Main Menu - shown after login -->
+<div id="mainMenuSection" class="hidden" aria-label="Main Menu">
+  <button class="option-button" id="btnAiJobSearch">AI Job Search</button>
+  <button class="option-button" id="btnAiResumeWriting">AI Resume Writing</button>
+  <button class="option-button" id="btnCoverLetterBuilder">Cover Letter Builder</button>
+  <button class="option-button" id="btnAtsChecker">ATS Compatibility Checker</button>
+  <button class="option-button" id="btnKeywordExtraction">Keyword Extraction</button>
+  <button class="option-button" id="btnFileTools">File Tools (PDF Converter, Compressor)</button>
+  <button class="option-button" id="btnDocumentScanner">Document Scanner</button>
+  <button class="option-button" id="btnLogout" style="background:#e74c3c;">Logout</button>
+</div>
 
-  <label for="titleInput">Job Title / Headline:</label>
-  <input type="text" id="titleInput" placeholder="Frontend Developer" />
+<!-- Content Section - dynamic content for each feature -->
+<div id="sectionContent" class="hidden" aria-live="polite" aria-atomic="true">
+  <!-- Content will be dynamically inserted here -->
+</div>
 
-  <label for="summaryInput">Summary / Objective:</label>
-  <textarea id="summaryInput" placeholder="A brief summary about your skills, goals, and experience..."></textarea>
+<script>
+  const loginSection = document.getElementById('loginSection');
+  const mainMenuSection = document.getElementById('mainMenuSection');
+  const sectionContent = document.getElementById('sectionContent');
+  const loginBtn = document.getElementById('loginBtn');
+  const loginError = document.getElementById('loginError');
 
-  <label for="skillsInput">Skills (comma separated):</label>
-  <input type="text" id="skillsInput" placeholder="JavaScript, React, Node.js, CSS" />
+  // Store login state (mock token)
+  let authToken = null;
 
-  <label for="experienceInput">Experience (job titles and companies):</label>
-  <textarea id="experienceInput" placeholder="Frontend Developer - XYZ Corp (2019-2023)\nIntern - ABC Ltd (2018-2019)"></textarea>
+  function showSection(section) {
+    loginSection.classList.add('hidden');
+    mainMenuSection.classList.add('hidden');
+    sectionContent.classList.add('hidden');
 
-  <label for="educationInput">Education:</label>
-  <textarea id="educationInput" placeholder="BSc Computer Science - University ABC, 2018"></textarea>
+    if (section === 'login') loginSection.classList.remove('hidden');
+    else if (section === 'menu') mainMenuSection.classList.remove('hidden');
+    else if (section === 'content') sectionContent.classList.remove('hidden');
+  }
 
-  <button id="generateBtn">Generate Resume Preview</button>
+  // Simulate backend login - replace with your backend API call
+  async function loginUser(username, password) {
+    // Mock: accept username 'user' and password 'pass'
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        if (username === 'user' && password === 'pass') {
+          resolve({ success: true, token: 'mock-token-123' });
+        } else {
+          resolve({ success: false, message: 'Invalid username or password.' });
+        }
+      }, 500);
+    });
+  }
 
-  <div id="templatePreview" aria-live="polite" aria-atomic="true"></div>
-  <div id="pdfNotice">To download or print your resume, use your browser's print function (Ctrl+P or Cmd+P).</div>
+  loginBtn.onclick = async () => {
+    loginError.textContent = '';
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value;
 
-  <script>
-    const generateBtn = document.getElementById('generateBtn');
-    const templatePreview = document.getElementById('templatePreview');
-
-    function escapeHTML(text) {
-      const div = document.createElement('div');
-      div.innerText = text;
-      return div.innerHTML;
+    if (!username || !password) {
+      loginError.textContent = 'Please enter username and password.';
+      return;
     }
 
-    function renderTemplate(templateClass, data) {
-      return `
-        <div class="${templateClass}">
-          <div class="resume-title">${escapeHTML(data.name)}</div>
-          <div class="resume-subtitle">${escapeHTML(data.title)}</div>
-
-          <div class="section-header">Summary</div>
-          <div class="section-content">${escapeHTML(data.summary).replace(/\n/g, '<br>')}</div>
-
-          <div class="section-header">Skills</div>
-          <div class="section-content">${escapeHTML(data.skills).split(',').map(s => s.trim()).filter(s => s).join(', ')}</div>
-
-          <div class="section-header">Experience</div>
-          <div class="section-content">${escapeHTML(data.experience).replace(/\n/g, '<br>')}</div>
-
-          <div class="section-header">Education</div>
-          <div class="section-content">${escapeHTML(data.education).replace(/\n/g, '<br>')}</div>
-        </div>
-      `;
+    const result = await loginUser(username, password);
+    if (result.success) {
+      authToken = result.token;
+      showSection('menu');
+      sectionContent.innerHTML = '';
+    } else {
+      loginError.textContent = result.message || 'Login failed.';
     }
+  };
 
-    generateBtn.onclick = () => {
-      const templateSelect = document.getElementById('templateSelect').value;
-      const data = {
-        name: document.getElementById('nameInput').value.trim() || 'John Doe',
-        title: document.getElementById('titleInput').value.trim() || 'Job Title',
-        summary: document.getElementById('summaryInput').value.trim() || 'Write a brief summary or objective here...',
-        skills: document.getElementById('skillsInput').value.trim() || 'Skill1, Skill2, Skill3',
-        experience: document.getElementById('experienceInput').value.trim() || 'Job title - Company (Year-Year)',
-        education: document.getElementById('educationInput').value.trim() || 'Degree - Institution (Year)'
-      };
-      templatePreview.innerHTML = renderTemplate(templateSelect, data);
-    };
+  document.getElementById('btnLogout').onclick = () => {
+    authToken = null;
+    showSection('login');
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    sectionContent.innerHTML = '';
+  };
 
-    // Render default preview on load
-    window.onload = () => {
-      generateBtn.click();
+  // UI Templates for features
+  const aiJobSearchUI = `
+    <div>
+      <div class="section-header">AI Job Search (Profile Based)</div>
+      <p>Enter your skills and experience to search jobs matching your profile:</p>
+      <label>Skills (comma separated):</label>
+      <input type="text" id="jobSkillsInput" placeholder="JavaScript, React, Python" />
+      <label>Years of Experience:</label>
+      <input type="text" id="jobExperienceInput" placeholder="E.g. 3" />
+      <button id="searchJobsBtn">Search Jobs</button>
+      <div id="jobResults" style="margin-top:12px; max-height:200px; overflow-y:auto; background:#eee;color:#222;padding:10px;border-radius:8px;"></div>
+    </div>
+  `;
+
+  const aiResumeWritingUI = `
+    <div>
+      <div class="section-header">AI Resume Writing / Alignment</div>
+      <p>Paste your current resume text below, then click "Rewrite Resume" to generate an improved version:</p>
+      <textarea id="resumeInput" class="textarea-large" placeholder="Paste your resume text here..."></textarea>
+      <button id="rewriteResumeBtn">Rewrite Resume</button>
+      <div id="aiResumeOutput" style="white-space:pre-wrap; background:#eee; color:#222; padding:10px; border-radius:8px; margin-top:15px; max-height:200px; overflow-y:auto;"></div>
+    </div>
+  `;
+
+  const coverLetterBuilderUI = `
+    <div>
+      <div class="section-header">AI Cover Letter Builder</div>
+      <p>Paste your resume text and job description below to generate a personalized cover letter:</p>
+      <label>Resume Text:</label>
+      <textarea id="coverResumeInput" class="textarea-large" placeholder="Paste your resume text here..."></textarea>
+      <label>Job Description:</label>
+      <textarea id="jobDescInput" class="textarea-large" placeholder="Paste job description here..."></textarea>
+      <button id="generateCoverBtn">Generate Cover Letter</button>
+      <div id="coverLetterOutput" style="white-space:pre-wrap; background:#eee; color:#222; padding:10px; border-radius:8px; margin-top:15px; max-height:200px; overflow-y:auto;"></div>
+    </div>
+  `;
+
+  const atsCheckerUI = `
+    <div>
+      <div class="section-header">ATS Compatibility Checker</div>
+      <p>Paste your resume text and job description, then get an ATS match score and keyword suggestions:</p>
+      <label>Resume Text:</label>
+      <textarea id="atsResumeInput" class="textarea-large" placeholder="Paste your resume text here..."></textarea>
+      <label>Job Description:</label>
+      <textarea id="atsJobDescInput" class="textarea-large" placeholder="Paste job description here..."></textarea>
+      <button id="checkAtsBtn">Check ATS Compatibility</button>
+      <div id="atsResult" style="background:#eee;color:#222;padding:10px;border-radius:8px;margin-top:15px;white-space:pre-wrap; max-height:200px; overflow-y:auto;"></div>
+    </div>
+  `;
+
+  const keywordExtractionUI = `
+    <div>
+      <div class="section-header">Keyword Extraction</div>
+      <p>Paste resume or job description text below to extract important keywords:</p>
+      <textarea id="keywordInput" class="textarea-large" placeholder="Paste text here..."></textarea>
+      <button id="extractKeywordsBtn">Extract Keywords</button>
+      <div id="keywordOutput"></div>
+    </div>
+  `;
+
+  const fileToolsUI = `
+    <div>
+      <div class="section-header">File Tools</div>
+      <p><strong>Note:</strong> File converters and compressors require backend support or third-party APIs.</p>
+      <label>Upload file:</label>
+      <input type="file" id="fileUploadInput" />
+      <div id="fileToolsOutput" style="background:#eee;color:#222;padding:10px;border-radius:8px;margin-top:15px; white-space: pre-wrap; max-height:200px; overflow-y:auto;"></div>
+    </div>
+  `;
+
+  const documentScannerUI = `
+    <div>
+      <div class="section-header">Document Scanner</div>
+      <p><strong>Note:</strong> Document scanning requires camera access and OCR APIs, which needs advanced development.</p>
+      <p>This feature is planned for future versions.</p>
+    </div>
+  `;
+
+  // Assign buttons
+  document.getElementById('btnAiJobSearch').onclick = () => {
+    sectionContent.innerHTML = aiJobSearchUI;
+    showSection('content');
+    setupAiJobSearch();
+  };
+
+  document.getElementById('btnAiResumeWriting').onclick = () => {
+    sectionContent.innerHTML = aiResumeWritingUI;
+    showSection('content');
+    setupAiResumeWriting();
+  };
+
+  document.getElementById('btnCoverLetterBuilder').onclick = () => {
+    sectionContent.innerHTML = coverLetterBuilderUI;
+    showSection('content');
+    setupCoverLetterBuilder();
+  };
+
+  document.getElementById('btnAtsChecker').onclick = () => {
+    sectionContent.innerHTML = atsCheckerUI;
+    showSection('content');
+    setupAtsChecker();
+  };
+
+  document.getElementById('btnKeywordExtraction').onclick = () => {
+    sectionContent.innerHTML = keywordExtractionUI;
+    showSection('content');
+    setupKeywordExtraction();
+  };
+
+  document.getElementById('btnFileTools').onclick = () => {
+    sectionContent.innerHTML = fileToolsUI;
+    showSection('content');
+    setupFileTools();
+  };
+
+  document.getElementById('btnDocumentScanner').onclick = () => {
+    sectionContent.innerHTML = documentScannerUI;
+    showSection('content');
+  };
+
+  // Utility to show sections
+  function showSection(name) {
+    loginSection.classList.add('hidden');
+    mainMenuSection.classList.add('hidden');
+    sectionContent.classList.add('hidden');
+
+    if (name === 'login') loginSection.classList.remove('hidden');
+    else if (name === 'menu') mainMenuSection.classList.remove('hidden');
+    else if (name === 'content') sectionContent.classList.remove('hidden');
+  }
+
+  // Initialize app at login
+  showSection('login');
+
+  // Placeholder implementations for feature setups:
+  function setupAiJobSearch() {
+    document.getElementById('searchJobsBtn').onclick = () => {
+      const skills = document.getElementById('jobSkillsInput').value.trim();
+      const experience = document.getElementById('jobExperienceInput').value.trim();
+      const resultDiv = document.getElementById('jobResults');
+      if (!skills || !experience) {
+        resultDiv.textContent = 'Please enter both skills and years of experience.';
+        return;
+      }
+      // Simulate job search
+      resultDiv.textContent = `Searching jobs for skills: ${skills} with experience: ${experience} years...\n\n` +
+        "1. Frontend Developer - Tech Corp\n2. Backend Engineer - DataWorks\n3. Data Scientist - Insight Analytics";
     };
-  </script>
+  }
+
+  function setupAiResumeWriting() {
+    document.getElementById('rewriteResumeBtn').onclick = () => {
+      const resumeText = document.getElementById('resumeInput').value.trim();
+      const outputDiv = document.getElementById('aiResumeOutput');
+      if (!resumeText) {
+        outputDiv.textContent = 'Please paste your resume text.';
+        return;
+      }
+      outputDiv.textContent = 'Rewriting resume...\n\n' + resumeText.split('\n').map(line => line.toUpperCase()).join('\n') + '\n\n(This is a placeholder rewritten resume)';
+    };
+  }
+
+  function setupCoverLetterBuilder() {
+    document.getElementById('generateCoverBtn').onclick = () => {
+      const resumeText = document.getElementById('coverResumeInput').value.trim();
+      const jobDesc = document.getElementById('jobDescInput').value.trim();
+      const outputDiv = document.getElementById('coverLetterOutput');
+      if (!resumeText || !jobDesc) {
+        outputDiv.textContent = 'Please provide both resume and job description.';
+        return;
+      }
+      outputDiv.textContent = `Dear Hiring Manager,\n\nI am excited to apply for this position. Based on my experience:\n\n${resumeText.slice(0,100)}...\n\nLooking forward to contributing to your team responding to:\n\n${jobDesc.slice(0,100)}...`;
+    };
+  }
+
+  function setupAtsChecker() {
+    document.getElementById('checkAtsBtn').onclick = () => {
+      const resumeText = document.getElementById('atsResumeInput').value.trim().toLowerCase();
+      const jobDesc = document.getElementById('atsJobDescInput').value.trim().toLowerCase();
+      const outputDiv = document.getElementById('atsResult');
+      if (!resumeText || !jobDesc) {
+        outputDiv.textContent = 'Please provide both resume text and job description.';
+        return;
+      }
+      const jobWords = Array.from(new Set(jobDesc.match(/\b\w+\b/g)));
+      const resumeWords = new Set(resumeText.match(/\b\w+\b/g));
+      let matched = 0;
+      jobWords.forEach(word => { if (resumeWords.has(word)) matched++; });
+      const score = Math.round((matched / jobWords.length) * 100);
+      outputDiv.textContent = `ATS Match Score: ${score}%\nMatched keywords: ${matched} out of ${jobWords.length}`;
+    };
+  }
+
+  function setupKeywordExtraction() {
+    document.getElementById('extractKeywordsBtn')?.addEventListener('click', () => {});
+    document.getElementById('extractKeywordsBtn').onclick = () => {
+      const text = document.getElementById('keywordInput').value.trim().toLowerCase();
+      const outputDiv = document.getElementById('keywordOutput');
+      if (!text) {
+        outputDiv.textContent = 'Please enter text to extract keywords.';
+        return;
+      }
+      const words = text.match(/\b\w+\b/g);
+      const freq = {};
+      words.forEach(w => { freq[w] = (freq[w] || 0) + 1; });
+      const keywords = Object.entries(freq).sort((a,b) => b[1] - a[1]).slice(0,15).map(e => e[0]);
+      outputDiv.textContent = 'Top Keywords: ' + keywords.join(', ');
+    };
+  }
+
+  function setupFileTools() {
+    const fileInput = document.getElementById('fileUploadInput');
+    const outputDiv = document.getElementById('fileToolsOutput');
+    outputDiv.textContent = '';
+    fileInput.onchange = () => {
+      const file = fileInput.files[0];
+      if (!file) {
+        outputDiv.textContent = 'Please upload a file.';
+        return;
+      }
+      outputDiv.textContent = `Uploaded file: ${file.name}\nSize: ${Math.round(file.size/1024)} KB\n\nFile tools functionality requires backend support or third-party APIs.`;
+    };
+  }
+</script>
+
 </body>
 </html>
 </content>
